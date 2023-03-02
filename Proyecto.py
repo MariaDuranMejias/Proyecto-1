@@ -1,4 +1,5 @@
 import random
+import ExtraerJugadores
 
 suits = ('\u2764', '\u2666', '\u2660', '\u2618')
 ranks = ('Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'J', 'Q', 'K', 'A')
@@ -146,8 +147,14 @@ while True:
         file = open("jugadores.txt", "a")
         CantidadJugadores = int(input("Elige la cantidad de jugadores: '1' o '2' \n"))
         if CantidadJugadores == 1:
-            NombreJugador1 = str(input("Digite el nombre del Jugador 1 \n"))
-            file.write("Jugador: " +  NombreJugador1 + "\n")
+            opcion = int(input("Digite '1' si desea utilizar el nombre de un jugador existente o '2' si es un nuevo nombre  \n"))
+            if opcion == 1:
+                print(ExtraerJugadores.Mostrar_Jugadores())
+                NombreJugador1 = input("Eliga el nombre del jugador\n")
+            elif opcion == 2:
+                NombreJugador1 = str(input("Digite el nombre del Jugador \n"))
+                file.write("Jugador: " +  NombreJugador1 + "\n")
+
             deck = Deck()
             deck.shuffle()
 
@@ -187,6 +194,9 @@ while True:
                 if player_hand.value == 21:
                     player_gana(player_hand, dealer_hand)
 
+                if dealer_hand.value == 21:
+                    dealer_gana(player_hand, dealer_hand)
+
                 if dealer_hand.value == player_hand.value:
                     empate(player_hand, dealer_hand)
 
@@ -199,64 +209,6 @@ while True:
                 elif dealer_hand.value < 21 and player_hand.value < 21 and dealer_hand.value < player_hand.value:
                     player_gana(player_hand, dealer_hand)
 
-        # elif CantidadJugadores == 2:
-        #     NombreJugador1 = str(input("Digite el nombre del Jugador 1 \n"))
-        #     file.write("Jugador: " +  NombreJugador1 + "\n")
-        #     NombreJugador2 = str(input("Digite el nombre del Jugador 2 \n"))
-        #     file.write("Jugador: " +  NombreJugador2 + "\n")
-        #     # crear una mezcla de la baraja
-        #     deck = Deck()
-        #     deck.shuffle()
-
-        #     player_hand = Hand()
-        #     player_hand.add_card(deck.deal())
-        #     player_hand.add_card(deck.deal())
-
-        #     player_hand2 = Hand()
-        #     player_hand2.add_card(deck.deal())
-        #     player_hand2.add_card(deck.deal())
-
-        #     dealer_hand = Hand()
-        #     dealer_hand.add_card(deck.deal())
-        #     dealer_hand.add_card(deck.deal())
-
-        #     # mostrar las cartas
-        #     mostrar_carta2(player_hand, player_hand2, dealer_hand)
-
-        #     while playing:
-
-        #         tomar_carta_o_parar2(deck, player_hand)
-        #         tomar_carta_o_parar2(deck, player_hand2)
-        #         mostrar_carta2(player_hand, player_hand2, dealer_hand)
-
-        #         if player_hand.value > 21:
-        #             player_pierde(player_hand, player_hand2, dealer_hand)
-        #             break
-        #         if player_hand2.value > 21:
-        #             player_pierde(player_hand, player_hand2, dealer_hand)
-        #             break
-
-        #     if player_hand.value and player_hand2.value <= 21:
-
-        #         while dealer_hand.value < 17:
-        #             tomar_carta(deck, dealer_hand)
-
-        #         mostrar_todas_las_cartas2(player_hand, player_hand2, dealer_hand)
-
-        #         if dealer_hand.value > 21:
-        #             dealer_pierde(player_hand, player_hand2, dealer_hand)
-
-        #         elif dealer_hand.value > player_hand.value:
-        #             dealer_gana(player_hand, player_hand2, dealer_hand)
-
-        #         elif dealer_hand.value < player_hand.value:
-        #             player_gana(player_hand, player_hand2, dealer_hand)
-
-        #         if player_hand.value > 21:
-        #             player_pierde(player_hand, player_hand2, dealer_hand)
-
-        # elif CantidadJugadores != 1 or 2: 
-        #     print("Cantidad invalida")
     if NewGame == 'no':
         print("Menu inicial")
     
@@ -267,3 +219,7 @@ while True:
     else:
         print("\n¡Gracias por jugar!")
         break
+
+#Extraer una palabra de un archivo de texto
+
+

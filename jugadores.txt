@@ -1,15 +1,10 @@
 Jugador: Maria
-Jugador: Maria
-MariaGANA
-Jugador: Maria
-Jugador: Maria
+Jugador: Jose
 Jugador: Maria
 Maria GANA
-Jugador: Maria
-Maria GANA
-Jugador: Maria
-Maria GANA
-Jugador: Maria
-Maria GANA
-Jugador: Maria
-Maria PERDIO
+Jugador: Jose
+Jose GANA
+Jugador: Luis
+Luis GANA
+Jugador: MAria
+Jugador: Nena
