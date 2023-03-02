@@ -1,10 +1,3 @@
 Jugador: Maria
 Jugador: Jose
-Jugador: Maria
-Maria GANA
-Jugador: Jose
-Jose GANA
 Jugador: Luis
-Luis GANA
-Jugador: MAria
-Jugador: Nena

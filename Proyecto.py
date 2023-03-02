@@ -120,11 +120,11 @@ def mostrar_todas_las_cartas(player, dealer):
 
 def player_pierde(player, dealer):
     print("¡JUGADOR PERDIO!")
-    file.write(NombreJugador1 + " " + "PERDIO" "\n")
+    resultados.write(NombreJugador1 + " " + "PERDIO" "\n")
 
 def player_gana(player, dealer):
     print("¡JUGADOR GANA!")
-    file.write(NombreJugador1 + " " + "GANA" "\n")
+    resultados.write(NombreJugador1 + " " + "GANA" "\n")
 
 def dealer_pierde(player, dealer):
     print("¡DEALER PERDIO!")
@@ -134,7 +134,7 @@ def dealer_gana(player, dealer):
 
 def empate(player, dealer):
     print("¡OHH! ¡Empate entre Dealer y Jugador!")
-    file.write(NombreJugador1 + " " + "EMPATA" "\n")
+    resultados.write(NombreJugador1 + " " + "EMPATA" "\n")
 
 # Inicio del juego
 
@@ -145,6 +145,7 @@ while True:
 
     if NewGame == 'si':
         file = open("jugadores.txt", "a")
+        resultados = open("resultados.txt", "a")
         CantidadJugadores = int(input("Elige la cantidad de jugadores: '1' o '2' \n"))
         if CantidadJugadores == 1:
             opcion = int(input("Digite '1' si desea utilizar el nombre de un jugador existente o '2' si es un nuevo nombre  \n"))
@@ -154,6 +155,13 @@ while True:
             elif opcion == 2:
                 NombreJugador1 = str(input("Digite el nombre del Jugador \n"))
                 file.write("Jugador: " +  NombreJugador1 + "\n")
+
+        print("Estadisticas jugador " + NombreJugador1 + ":")
+        with open("resultados.txt", "r") as archivo_lectura:
+            for linea in archivo_lectura:
+                linea = linea.rstrip()
+                if NombreJugador1 in linea:
+                    print(linea)
 
             deck = Deck()
             deck.shuffle()
