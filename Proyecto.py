@@ -203,7 +203,7 @@ while True:
                     player_gana(player_hand, dealer_hand)
 
                 if dealer_hand.value == 21:
-                    dealer_gana(player_hand, dealer_hand)
+                    player_pierde(player_hand, dealer_hand)
 
                 if dealer_hand.value == player_hand.value:
                     empate(player_hand, dealer_hand)
@@ -212,7 +212,7 @@ while True:
                     player_gana(player_hand, dealer_hand)
 
                 elif dealer_hand.value < 21 and player_hand.value < 21 and dealer_hand.value > player_hand.value:
-                    dealer_gana(player_hand, dealer_hand)
+                    player_pierde(player_hand, dealer_hand)
 
                 elif dealer_hand.value < 21 and player_hand.value < 21 and dealer_hand.value < player_hand.value:
                     player_gana(player_hand, dealer_hand)
