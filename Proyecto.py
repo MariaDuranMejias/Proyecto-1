@@ -119,9 +119,11 @@ def mostrar_todas_las_cartas(player, dealer):
 
 def player_pierde(player, dealer):
     print("¡JUGADOR PERDIO!")
+    file.write(NombreJugador1 + " " + "PERDIO" "\n")
 
 def player_gana(player, dealer):
     print("¡JUGADOR GANA!")
+    file.write(NombreJugador1 + " " + "GANA" "\n")
 
 def dealer_pierde(player, dealer):
     print("¡DEALER PERDIO!")
@@ -131,6 +133,7 @@ def dealer_gana(player, dealer):
 
 def empate(player, dealer):
     print("¡OHH! ¡Empate entre Dealer y Jugador!")
+    file.write(NombreJugador1 + " " + "EMPATA" "\n")
 
 # Inicio del juego
 
@@ -175,17 +178,26 @@ while True:
 
                 mostrar_todas_las_cartas(player_hand, dealer_hand)
 
-                if dealer_hand.value > 21:
-                    dealer_pierde(player_hand, dealer_hand)
-
-                elif dealer_hand.value > player_hand.value:
-                    dealer_gana(player_hand, dealer_hand)
-
-                elif dealer_hand.value < player_hand.value:
+                if dealer_hand.value > 21 and player_hand.value < 21:
                     player_gana(player_hand, dealer_hand)
 
                 if player_hand.value > 21:
                     player_pierde(player_hand, dealer_hand)
+
+                if player_hand.value == 21:
+                    player_gana(player_hand, dealer_hand)
+
+                if dealer_hand.value == player_hand.value:
+                    empate(player_hand, dealer_hand)
+
+                elif dealer_hand.value < player_hand.value:
+                    player_gana(player_hand, dealer_hand)
+
+                elif dealer_hand.value < 21 and player_hand.value < 21 and dealer_hand.value > player_hand.value:
+                    dealer_gana(player_hand, dealer_hand)
+
+                elif dealer_hand.value < 21 and player_hand.value < 21 and dealer_hand.value < player_hand.value:
+                    player_gana(player_hand, dealer_hand)
 
         # elif CantidadJugadores == 2:
         #     NombreJugador1 = str(input("Digite el nombre del Jugador 1 \n"))
