@@ -3,8 +3,8 @@ import ExtraerJugadores
 
 #Se declaran las listas de simbolos, numeros y valores que se van a utilizar 
 suits = ('\u2764', '\u2666', '\u2660', '\u2618')
-ranks = ('Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'J', 'Q', 'K', 'A')
-values = {'Two': 2, 'Three': 3, 'Four': 4, 'Five': 5, 'Six': 6, 'Seven': 7, 'Eight': 8,'Nine': 9, 'Ten': 10, 'J': 10, 'Q': 10, 'K': 10, 'A': 11}
+ranks = ('Dos', 'Tres', 'Cuatro', 'Cinco', 'Seis', 'Siete', 'Ocho', 'Nueve', 'Diez', 'J', 'Q', 'K', 'A')
+values = {'Dos': 2, 'Tres': 3, 'Cuatro': 4, 'Cinco': 5, 'Seis': 6, 'Siete': 7, 'Ocho': 8,'Nueve': 9, 'Diez': 10, 'J': 10, 'Q': 10, 'K': 10, 'A': 11}
 
 #Condiciones que se van a dar mientras se esta jugando
 playing = True
@@ -97,7 +97,6 @@ def player_pierde(player, dealer):
 def player_gana(player, dealer):
     print("¡JUGADOR GANA!")
     resultados.write(NombreJugador1 + " " + "GANA" "\n")
-
 def empate(player, dealer):
     print("¡OHH! ¡Empate entre Dealer y Jugador!")
     resultados.write(NombreJugador1 + " " + "EMPATA" "\n")
@@ -116,89 +115,80 @@ while True:
     if NewGame == 'si':
         file = open("jugadores.txt", "a")
         resultados = open("resultados.txt", "a")
-        CantidadJugadores = int(input("Elige la cantidad de jugadores: '1' o '2' \n"))
-        if CantidadJugadores == 1:
-            opcion = int(input("Digite '1' si desea utilizar el nombre de un jugador existente o '2' si es un nuevo nombre  \n"))
-            if opcion == 1:
-                print(ExtraerJugadores.Mostrar_Jugadores())
-                NombreJugador1 = input("Eliga el nombre del jugador\n")
-            elif opcion == 2:
-                NombreJugador1 = str(input("Digite el nombre del Jugador \n"))
-                file.write("Jugador: " +  NombreJugador1 + "\n")
+        opcion = int(input("Digite '1' si desea utilizar el nombre de un jugador existente o '2' si es un nuevo nombre  \n"))
+        if opcion == 1:
+            print(ExtraerJugadores.Mostrar_Jugadores())
+            NombreJugador1 = input("Eliga el nombre del jugador\n")
+        elif opcion == 2:
+            NombreJugador1 = str(input("Digite el nombre del Jugador \n"))
+            file.write("Jugador: " +  NombreJugador1 + "\n")
 
-        print("Estadisticas jugador " + NombreJugador1 + ":")
-        with open("resultados.txt", "r") as archivo_lectura:
-            for linea in archivo_lectura:
-                linea = linea.rstrip()
-                if NombreJugador1 in linea:
-                    print(linea)
+    print("Estadisticas jugador " + NombreJugador1 + ":")
+    with open("resultados.txt", "r") as archivo_lectura:
+        for linea in archivo_lectura:
+            linea = linea.rstrip()
+            if NombreJugador1 in linea:
+                print(linea)
 
+    deck = Deck()
+    deck.shuffle()
 
-            deck = Deck()
-            deck.shuffle()
+    player_hand = Hand()
+    player_hand.add_card(deck.deal())
+    player_hand.add_card(deck.deal())
 
-            player_hand = Hand()
-            player_hand.add_card(deck.deal())
-            player_hand.add_card(deck.deal())
+    dealer_hand = Hand()
+    dealer_hand.add_card(deck.deal())
+    dealer_hand.add_card(deck.deal())
 
-            dealer_hand = Hand()
-            dealer_hand.add_card(deck.deal())
-            dealer_hand.add_card(deck.deal())
+    # mostrar las cartas
+    mostrar_carta(player_hand, dealer_hand)
 
-            # mostrar las cartas
-            mostrar_carta(player_hand, dealer_hand)
+    while playing:
 
-            while playing:
+        tomar_carta_o_parar(deck, player_hand)
+        mostrar_carta(player_hand, dealer_hand)
 
-                tomar_carta_o_parar(deck, player_hand)
-                mostrar_carta(player_hand, dealer_hand)
+        if player_hand.value > 21:
+            player_pierde(player_hand, dealer_hand)
+            break
 
-                if player_hand.value > 21:
-                    player_pierde(player_hand, dealer_hand)
-                    break
+    if player_hand.value <= 21:
 
-            if player_hand.value <= 21:
+        while dealer_hand.value < 17:
+            tomar_carta(deck, dealer_hand)
 
-                while dealer_hand.value < 17:
-                    tomar_carta(deck, dealer_hand)
+        mostrar_todas_las_cartas(player_hand, dealer_hand)
 
-                mostrar_todas_las_cartas(player_hand, dealer_hand)
+        if dealer_hand.value > 21 and player_hand.value < 21:
+            player_gana(player_hand, dealer_hand)
 
-                if dealer_hand.value > 21 and player_hand.value < 21:
-                    player_gana(player_hand, dealer_hand)
+        if player_hand.value > 21:
+            player_pierde(player_hand, dealer_hand)
 
-                if player_hand.value > 21:
-                    player_pierde(player_hand, dealer_hand)
+        if player_hand.value == 21:
+            player_gana(player_hand, dealer_hand)
 
-                if player_hand.value == 21:
-                    player_gana(player_hand, dealer_hand)
+        if dealer_hand.value == 21:
+            player_pierde(player_hand, dealer_hand)
 
-                if dealer_hand.value == 21:
-                    player_pierde(player_hand, dealer_hand)
+        if dealer_hand.value == player_hand.value:
+            empate(player_hand, dealer_hand)
 
-                if dealer_hand.value == player_hand.value:
-                    empate(player_hand, dealer_hand)
+        elif dealer_hand.value < player_hand.value:
+            player_gana(player_hand, dealer_hand)
 
-                elif dealer_hand.value < player_hand.value:
-                    player_gana(player_hand, dealer_hand)
+        elif dealer_hand.value < 21 and player_hand.value < 21 and dealer_hand.value > player_hand.value:
+            player_pierde(player_hand, dealer_hand)
 
-                elif dealer_hand.value < 21 and player_hand.value < 21 and dealer_hand.value > player_hand.value:
-                    player_pierde(player_hand, dealer_hand)
+        elif dealer_hand.value < 21 and player_hand.value < 21 and dealer_hand.value < player_hand.value:
+            player_gana(player_hand, dealer_hand)
 
-                elif dealer_hand.value < 21 and player_hand.value < 21 and dealer_hand.value < player_hand.value:
-                    player_gana(player_hand, dealer_hand)
-
-    if NewGame == 'no':
-        print("Menu inicial")
-    
+#Cuando el jugador recibe el resultado, se pregunta si se desea jugar otra partida, si el jugador elije que no, se retorna al menu principal 
     new_game = input("\n¿Desea jugar otra partida? Escriba 's' o 'n': ")
     if new_game[0].lower() == 's':
         playing = True
         continue
-    else:
-        print("\n¡Gracias por jugar!")
+    if new_game[0].lower() == 'n':
+        import menu as menu
         break
-
-#Extraer una palabra de un archivo de texto
-
-
