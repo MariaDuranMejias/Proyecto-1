@@ -104,7 +104,7 @@ def empate(player, dealer):
 # Inicio del juego
 # Se pregunta si se quiere iniciar un juego nuevo
 # Si la respuesta es si, se abre el archivo jugadores.txt donde se va a almacenar el historial de jugadores
-# Se pregunta por la cantidad de jugadores
+
 # Se pregunta si quiere usar un jugador existente o crear uno nuevo
 # Si elige un jugador existente, tendra las estadisticas de este jugador
 while True:

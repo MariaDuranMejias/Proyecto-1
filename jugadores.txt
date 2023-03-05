@@ -1,3 +1,12 @@
 Jugador: Maria
-Jugador: Jose
+Jugador: Mario
 Jugador: Luis
+Jugador: Maria
+Jugador: Maria
+Jugador: Luis
+Jugador: Maria
+Jugador: Jose
+Maria PERDIO
+Jose GANA
+Maria GANA
+Jugador: Jose
